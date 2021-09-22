@@ -5,8 +5,9 @@ Parser(string nomArchivo);    //abre un flujo/archivo de entrada y lo deja listo
         verificamos  SI existe el archivo
             inicializa un ATRIBUTO(ENTERA) PC=0
             inicializa un ATRIBUTO(STRING) lineaActual=""
+            creamos el archivo de salida
             cramos un objeto SymbolTable
-        SINO
+        SINO 
             lanza un error y para ejecucion
     SINO
         lanza un error y para ejecucion

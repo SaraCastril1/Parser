@@ -5,7 +5,7 @@
 #include <map>
 
 using namespace std;
- 
+
 class Code
 {
 private:

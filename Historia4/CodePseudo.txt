@@ -19,6 +19,7 @@ string value(int direccion);   // devuelve el binario del valor del tipo A
     SINO
         PARA numero = 0 , mientras numero<15, de 1 en 1: (posible error en el numero de veces)
             registroA=datoADividir%2+registroA
+            cambiamos el dato a dividir por el cociente entre 2
         FIN PARA
     
     retorna registroA

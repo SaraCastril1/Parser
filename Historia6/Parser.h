@@ -24,7 +24,7 @@ public:
     bool esTipoA();
     bool esTipoC();
     bool esTipoL();
-    string simbolo();           //retorna el simbolo  L
+    string simbolo();           //retorna el simbolo o el decimal del @____ (solo para comandos A o L)
     string dest();              //retorna el mnemonico del dest (tabla 2)
     string comp();              //retorna el mnemonico del comp (tabla 1)
     string jump();              //retorna el mnemonico del jump (tabla 3)

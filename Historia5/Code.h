@@ -2,9 +2,10 @@
 #define code_h
 
 #include <string>
+#include <map>
 
 using namespace std;
-
+ 
 class Code
 {
 private:
