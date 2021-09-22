@@ -1,0 +1,21 @@
+SymbolTable();       
+    Cear el diccionario de tipos strin-enteros (atributo de la clase)
+    se añaden los valores predefinidos por la tabla 4
+    se crea el contadorRAM inicializado en 16                      
+FIN SymbolTable();                             
+
+void anadir(string symbol, int adress);     // añade simbolo-dirección a la tabla
+    se pone el par simbolo direccion en el ultimo espacio del diccionario
+FIN void anadir(string symbol, int adress);
+
+bool esta(string symbol);                   // responde si la tabla contiene el símbolo buscado
+    verifica SI el simbolo ingresado ya existe en el diccionario
+        retorna true
+    SINO
+        retorna false
+bool esta(string symbol);                   
+
+int direccion(string symbol);               // devuelve la dirección del símbolo buscado
+    busca el simbolo 
+    retorna la direccion del simbolo buscado
+int direccion(string symbol);               

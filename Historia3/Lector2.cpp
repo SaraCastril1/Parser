@@ -15,10 +15,10 @@
 
 using namespace std;
 
-int main()
+int main(int argc, char *argv[])
 {
     string nombreArchivo,linea;
-    cin>>nombreArchivo;
+    nombreArchivo=argv[1];
     fstream archivo;
     archivo.open(nombreArchivo);
     if(!archivo){
@@ -29,4 +29,5 @@ int main()
             DEBUG_STDOUT(linea);
         }
     }
+    archivo.close();
 }

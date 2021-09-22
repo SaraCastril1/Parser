@@ -1,0 +1,134 @@
+INICIALIZAR
+
+    instanciamos un parser que tendría un archivo de lectura y uno de escritura
+        (verificando que el de lectura sí sea de extensión .asm y que sí exista)
+        (el PC también se inicializa dentro del parser como un ATRIBUTO(ENTERO=0))
+        (instanciamos una tabla de símbolos predefinida con los valores de la tabla 4)
+            (lleva por dentro un contador ATRIBUTO(ENTERO=16))
+
+FIN INICIALIZAR
+
+PRIMERA PASADA
+
+    recorremos el archivo de lectura MIENTRAS no se llegue al final del mismo
+
+        accedemos a la linea del archivo y la almacenamos en la VARIABLE(STRING):lineaActual
+        verificamos SI HAY-COMANDOS: (aquí se borran los espacios y los comentarios)
+
+            verificamos SI COMANDO-ES-L:
+
+            le sacamos el símbolo (SIMBOLO)
+            almacenamos el valor en una VARIABLE(STRING):etiqueta
+            verificamos SI NO(etiqueta ESTÁ en la tabla de simbolos):
+                AÑADIMOS a la tabla a etiqueta con la dirección PC
+            SINO
+                LANZAR ERROR Y PARAR PROGRAMA
+            FIN SI
+
+            SINO
+
+                aumenta el pc
+
+            FIN SI
+
+        SINO
+
+            continua el ciclo
+
+        FIN SI
+
+    FIN MIENTRAS
+
+FIN PRIMERA PASADA
+
+SEGUNDA PASADA
+
+    -VOLVEMOS AL INICIO DEL ARCHIVO
+    recorremos el archivo de lectura MIENTRAS no se llegue al final del mismo
+
+        accedemos a la linea del archivo y la almacenamos en la VARIABLE(STRING):lineaActual
+        verificamos SI HAY-COMANDOS: (aquí se borran los espacios y los comentarios)
+
+            verificamos SI COMANDO-ES-A:
+                verificamos si el segundo caracter de lineaActual es un caracter entre 0 y 9:
+
+                    le sacamos el valor (VALOR)
+                    almacenamos el valor en una VARIABLE(ENTERO):registroA
+                    traducimos este valor a binario y concatenamos con un 0 al principio
+                    almacenamos el valor anterior en la VARIABLE(STRING):registroABin
+                    llevamos al archivo de salida 
+
+                SINO
+
+                    le sacamos el valor (VALOR)
+                    almacenamos el valor en una VARIABLE(STRING):variable
+                    verificamos si la variable ESTÁ en la tabla de símbolos 
+
+                        accedemos a la DIRECCION
+                        almacenamos la direccion en una VARIABLE(ENTERO):registroA
+                        traducimos registroA a binario y concatenamos con un 0 al principio (VALUE)
+                        almacenamos el valor anterior en la VARIABLE(STRING):registroABin
+                        llevamos al archivo de salida
+
+                    SINO
+
+                        AÑADIMOS a la tabla de símbolos variable en la posición contador
+                        almacenamos el contador en una VARIABLE(ENTERO):registroA
+                        traducimos registroA a binario y concatenamos con un 0 al principio (VALUE)
+                        almacenamos el valor anterior en la VARIABLE(STRING):registroABin
+                        llevamos al archivo de salida
+                        aumentamos el contador
+
+                    FIN SI
+
+                FIN SI
+
+            SINO SI COMANDO-ES-C:
+                
+                declaramos VARIABLE(STRING):dest
+                declaramos VARIABLE(STRING):comp
+                declaramos VARIABLE(STRING):jump
+                inicializamos VARIABLE(int):posiciónOperador
+
+                posiciónOperador = la posición del '='
+                verificar SI  la posiciónOperador > 0:
+
+                    comp se inicializa con el tramo de linea luego del igual
+                    dest se inicializa con el tramo de linea antes del igual
+                    jump = NULL
+
+                SINO
+
+                    posiciónOperador = la posición del ';'
+                    jump se inicializa con el tramo de linea luego del punto y coma
+                    comp se inicializa con el tramo de linea antes del punto y coma
+                    dest = NULL
+
+                FIN SI 
+
+                traducimos los valores de comp, dest y jump a los binarios correspondientes según las tablas 1,2 y 3
+                almacenamos dichos valores en las mismas variables
+                concatenamos "111" con los valores de comp, dest y jump en binario en VARIABLE(STRING):registroCBin
+                llevamos el valor anterior a el archivo de salida
+
+
+            SINO
+
+                continua el ciclo
+
+            FIN SI
+
+        SINO
+
+            continua el ciclo
+
+        FIN SI
+
+    FIN MIENTRAS
+
+FIN SEGUNDA PASADA
+
+FINALIZAR
+    cerrar archivo de entrada y archivo de salida
+    borrar y destruir los objetos creados(code, el parser y la tabla de símbolos)
+FIN FINALIZAR

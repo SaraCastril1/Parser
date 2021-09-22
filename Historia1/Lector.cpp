@@ -1,16 +1,16 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-//diferencia entre string y string.h
 using namespace std;
 
-int main()
+int main(int argc, char *argv[])
 {
     string nombreArchivo;
-    cin>>nombreArchivo;
+    nombreArchivo=argv[1];
     fstream archivo;
     archivo.open(nombreArchivo);
     if(!archivo){
         cout<<"El archivo "<<nombreArchivo<<" no existe";
     }
+    archivo.close();
 }

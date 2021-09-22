@@ -1,0 +1,160 @@
+Parser(string nomArchivo);    //abre un flujo/archivo de entrada y lo deja listo para realizar el parsing
+    verifica SI la extensión de nomArchivo sea .asm 
+        creamos un objeto que manipule archivos 
+        abrimos el archivo con el nomArchivo
+        verificamos  SI existe el archivo
+            inicializa un ATRIBUTO(ENTERA) PC=0
+            inicializa un ATRIBUTO(STRING) lineaActual=""
+            cramos un objeto SymbolTable
+        SINO
+            lanza un error y para ejecucion
+    SINO
+        lanza un error y para ejecucion
+FIN Parser(string nomArchivo);    
+
+bool hayComandos();     // pregunta si el archivo tiene más comandos
+    eliminamos los ' ' en la lineaActual
+    eliminamos todo lo que haya luego de "//"
+    verificamos SI lineaActual tiene más contenido (posible codigo)
+        retorna verdadero
+    SINO
+        retorna false
+FIN bool hayComandos();     
+
+bool esTipoA();
+    SI (primer caracter de lineaActual es "@"):
+
+        SI primer caracter luego del @ esta entre 0y9:
+            inicializar variable registroANumerico
+            
+            MIENTRAS caracter esté entre (0 y 9)y menor que la longitud de lineaActual
+                registroANumerico+= caracter
+                siguiente caracter
+
+            SI NO(HAY siguiente):
+                retorne true
+            SINO
+                LANZAR ERROR   
+
+        SINO:
+            inicializar variable registroAAlfaNumerico
+            
+            MIENTRAS (caracter sea diferente " ")y menor que la longitud de lineaActual
+                registroANumerico+= caracter
+                siguiente caracter
+
+            SI NO(HAY siguiente):
+                retorne true
+            SINO
+                LANZAR ERROR
+    SINO
+        retorna false
+
+FIN bool esTipoA();
+
+bool esTipoC();
+
+    inicializar una variable buscarIgual como entero-> almacenamos el índice donde se encuentre
+    inicializar una variable buscarPuntoYComa como entero-> almacenamos el índice donde se encuentre
+    
+    SI buscarIgual>0 y buscarPuntoYComa>0:
+
+        lanzamos ERROR
+
+    SINO SI buscarIgual>0:
+
+        inicializar una variable dest como string-> almacenamos el substring antes del =
+
+        verificar SI dest corresponde a alguno de los datos de la tabla 2:
+
+            inicializar una variable computational como string-> almacenamos el substring luego del =
+
+            verificar si computational corresponde a alguno de los datos de la tabla 1:
+                retornamos true
+            SINO:
+                lanzamos ERROR
+
+        SINO:
+            lanzamos ERROR
+        FINSI
+
+    SINO SI buscarPuntoYComa>0:
+
+        inicializar una variable computational como string-> almacenamos el substring antes del ;
+
+        verificar si computational corresponde a alguno de los datos de la tabla 1:
+
+            inicializar una variable jump como string-> almacenamos el substring luego del ;
+
+            verificar si jump corresponde a alguno de los datos de la tabla 3:
+                retornamos true
+            SINO:
+                lanzamos ERROR
+
+        SINO:
+            lanzamos ERROR
+
+
+    SINO
+        lanzamos ERROR
+
+FIN bool esTipoC();
+
+bool esTipoL();
+
+    SI (primer caracter de lineaActual "(" ):
+
+        inicializar variable registroEtiqueta
+        siguiente caracter
+        MIENTRAS (caracter esté entre (A y Z) o (a y z) o (caracter>1 y (0 y 9)))y menor que la longitud de lineaActual:
+            registroEtiqueta+= caracter
+            siguiente caracter
+        
+        SI (HAY siguiente)Y(siguiente caracter == ")"):
+            retorne true
+        SINO
+            LANZAR ERROR
+
+    SINO 
+        retorne false
+
+FIN bool esTipoL();
+
+string simbolo();           //retorna el simbolo de (XXX)
+    borramos '(' de lineaActual
+    borramos ')' de lineaActual
+    retornamos lineaActual
+FIN string simbolo();           
+
+string dest();              //retorna el mnemonico del dest (tabla 2)
+    verificamos SI lineaActual tiene '='
+        retornamos la parte de la cadena previa al '='
+    SINO
+        retornamos "NULL"
+FIN string dest();              
+
+string comp();              //retorna el mnemonico del comp (tabla 1)
+    verificamos SI lineaActual tiene '='
+        retornamos la parte de la cadena siguiente al '='
+    SINO verificamos SI lineaActual tiene ';'
+        retornamos la parte de la cadena previa al ';'
+FIN string comp();              
+
+string jump();              //retorna el mnemonico del jump (tabla 3)
+    verificamos SI lineaActual tiene ';'
+        retornamos la parte de la cadena siguiente al ';'
+    SINO
+        retornamos "NULL"
+FIN string jump();              
+
+int valor();                //retorna el valor del tipo a 
+    verificamos SI luego del @ el caracter está entre 0 y 9
+        retornamos la parte de la cadena luego del @ (ojo con el casting)
+    SINO
+        verifica SI la cadena posterior al @ ESTA en la tabla de simbolos
+            accede a la DIRECCIÓN y la retorna
+        SINO
+            AÑADIMOS el par subcadena-contadorRAM en la última posicion de la tabla
+            aumentamos el contadorRAM
+            retornamos (contadorRAM-1)
+FIN int valor();                
