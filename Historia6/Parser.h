@@ -11,13 +11,12 @@ class Parser
 {
 private:
     int PC=0;
-    fstream archivoEntrada,archivoSalida;
     string lineaActual="";
 
 public:
-    SymbolTable tabla;
-
-    Parser(string nomArchivo);    //abre un flujo/archivo de entrada y lo deja listo para realizar el parsing
+    SymbolTable tabla=SymbolTable(); //Tabla inicializada
+    fstream archivoEntrada,archivoSalida; // Pendiente de correccion
+    Parser(string nomArchivo1,string nomArchivo2);    //abre un flujo/archivo de entrada y lo deja listo para realizar el parsing
     ~Parser();                  //destruye jeje
 
     bool hayComandos();     // pregunta si el archivo tiene más comandos
@@ -28,6 +27,6 @@ public:
     string dest();              //retorna el mnemonico del dest (tabla 2)
     string comp();              //retorna el mnemonico del comp (tabla 1)
     string jump();              //retorna el mnemonico del jump (tabla 3)
-    int valor();                //retorna el valor del tipo a 
+    string valor();                //retorna el valor del tipo a 
 };
 #endif

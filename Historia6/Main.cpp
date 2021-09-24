@@ -12,8 +12,23 @@
 
 using namespace std;
 
-void inicializar(){
-
+void inicializar(string nomArchivo){
+    if(nomArchivo.substr(nomArchivo.find("."),5)==".asm"){
+        fstream archivoEntrada;
+        archivoEntrada.open(nomArchivo);
+        if(archivoEntrada){
+            string nomArchivoS=nomArchivo.substr(0,nomArchivo.find("."))+".hack";
+            fstream archivoSalida;
+            archivoSalida.open(nomArchivoS,std::ios::out);//Se crea archivo.hack vacio.
+            Parser objetoParser(nomArchivo,nomArchivoS);
+            archivoEntrada.close();
+            archivoSalida.close();
+        }else{
+            throw "ERROR: El archivo "+nomArchivo+" no existe";
+        }
+    }else{
+        throw "ERROR: La extension no es .asm";
+    }
 };
 void primeraPasada(){
 
@@ -28,9 +43,8 @@ void finalizar(){
 int main(int argc, char const *argv[])
 {
     try
-    {// pa que parseas sin abrir el archivo
-        Parser parserito(argv[1]);
-        inicializar();
+    {
+        inicializar(argv[1]);
         primeraPasada();
         segundaPasada();//cambiar puntero || abrir y volver a cerrar
     }
