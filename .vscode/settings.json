@@ -3,6 +3,7 @@
         "iosfwd": "cpp",
         "string": "cpp",
         "map": "cpp",
-        "xstring": "cpp"
+        "xstring": "cpp",
+        "*.tcc": "cpp"
     }
 }

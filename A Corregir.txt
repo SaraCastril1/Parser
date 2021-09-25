@@ -1,0 +1,20 @@
+    	function deleted
+archivos como parametros no da --> getters y setters??------>Jose luis está revisando
+
+	limite para los numeros
+no puede ser mayor a 32.768?
+
+    	error :
+@juanfelipe
+@juan felipe
+->@juanfelipe
+
+(etiqueta ejemplo)
+(etiquetaejemplo)
+->etiquetaejemplo
+		--> no se eliminan los espacios sino que se les hace trimming jejeje y el mismo trimming se hace a los substrings de análisis
+
+	como saber si no es ninguna instrucción?
+linea 170 debe devolver falso porque sino cómo se niega que sea tipo c? (parser.cpp)
+
+linea 123 debe verificar si es tipo L y sino debe afirmarse que no es ningun tipo de instruccion y se para ejecución (mainPseudo)

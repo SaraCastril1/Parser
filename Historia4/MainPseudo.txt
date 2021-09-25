@@ -1,12 +1,18 @@
 INICIALIZAR
 
-    instanciamos un parser que tendría un archivo de lectura y uno de escritura
-        (verificando que el de lectura sí sea de extensión .asm y que sí exista)
-        (el PC también se inicializa dentro del parser como un ATRIBUTO(ENTERO=0))
-        (instanciamos una tabla de símbolos predefinida con los valores de la tabla 4)
-            (lleva por dentro un contador ATRIBUTO(ENTERO=16))
+	con el nombre del archivo verificamos SI tiene extensión .asm
+		verificamos SI el archivo existe 
+			creamos el Parser(inicializa el PC como ATRIBUTO(ENTERO=0))
+				-> tiene por dentro la tabla de símbolos(lleva por dentro el contadorRAM ATRIBUTO(ENTERO=16))
+		SINO
+			lanzamos un error diciendo que no existe
+		FIN SI
+	SINO
+		lanzamos un error de que la extensión es erronea
+	FIN SI
 
 FIN INICIALIZAR
+
 
 PRIMERA PASADA
 
