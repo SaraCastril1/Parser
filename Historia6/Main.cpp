@@ -31,12 +31,15 @@ void inicializar(string nomArchivo){
         throw "ERROR: La extension no es .asm";
     }
 };
+
 void primeraPasada(){
 
 };
+
 void segundaPasada(){
 
 };
+
 void finalizar(){
     
 };

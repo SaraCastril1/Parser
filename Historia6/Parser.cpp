@@ -9,7 +9,17 @@
 #include <string.h>
 #include "SymbolTable.h"
 #include "Parser.h"
-//#include <iostream>
+#include <iostream>
+
+#define DEBUG
+
+#ifdef DEBUG
+#define DEBUG_STDERR(x) (std::cerr << (x) << "\n")
+#define DEBUG_STDOUT(x) (std::cout << (x) << "\n")
+#else
+#define DEBUG_STDERR(x) do{}while(0)
+#define DEBUG_STDOUT(x) do{}while(0)
+#endif
 
 Parser::Parser(string nomArchivo1, string nomArchivo2)
 {
@@ -18,6 +28,7 @@ Parser::Parser(string nomArchivo1, string nomArchivo2)
 }
 Parser::~Parser()
 {
+    DEBUG_STDERR("-----se llamo el destructor del parser------");
     tabla.~SymbolTable();
     archivoEntrada.close();
     archivoSalida.close();
@@ -51,7 +62,7 @@ bool Parser::esTipoA()
            
             string registroNumerico = "@";
 
-            while (lineaActual.at(c) >= '0' && lineaActual.at(c) <= '9' && c < lineaActual.length())
+            while (c < lineaActual.length() && lineaActual.at(c) >= '0' && lineaActual.at(c) <= '9' )
             {
                 registroNumerico += lineaActual.at(c);
                 c += 1;
@@ -62,6 +73,8 @@ bool Parser::esTipoA()
             }
             else
             {
+                DEBUG_STDOUT("LINEA CON ERROR:");
+                DEBUG_STDOUT(lineaActual);
                 throw "ERROR: Es una instruccion A mal escrita";
             }
         }
@@ -69,7 +82,7 @@ bool Parser::esTipoA()
         { 
             string registroAlfanumerico="@";
 
-            while(lineaActual.at(c)!=' ' && c<lineaActual.length()){
+            while(c<lineaActual.length() && lineaActual.at(c)!=' ' ){
                 registroAlfanumerico += lineaActual.at(c);
                 c += 1;
             }
@@ -78,6 +91,8 @@ bool Parser::esTipoA()
                 return true;
             }
             else{
+                DEBUG_STDOUT("LINEA CON ERROR:");
+                DEBUG_STDOUT(lineaActual);
                 throw "ERROR: Es una instruccion A mal escrita";
             }
             
@@ -94,6 +109,8 @@ bool Parser::esTipoC()
     int buscarPuntoYComa = lineaActual.find(";");
     if (buscarIgual > 0 && buscarIgual < lineaActual.length() && buscarPuntoYComa > 0 && buscarPuntoYComa < lineaActual.length())
     {
+        DEBUG_STDOUT("LINEA CON ERROR:");
+        DEBUG_STDOUT(lineaActual);
         throw "ERROR: Las instrucciones tipo c no pueden tener ambos operadores (= y ;)";
     }
     else if (buscarIgual > 0 && buscarIgual < lineaActual.length())
@@ -128,18 +145,22 @@ bool Parser::esTipoC()
             }
             else
             {
+                DEBUG_STDOUT("LINEA CON ERROR:");
+                DEBUG_STDOUT(lineaActual);
                 throw "ERROR: El computational no coincide con ninguno de los posibles";
             }
         }
         else
         {
+            DEBUG_STDOUT("LINEA CON ERROR:");
+            DEBUG_STDOUT(lineaActual);
             throw "ERROR: El Destino no coincide con ninguno de los posibles";
         }
     }
     else if (buscarPuntoYComa > 0 && buscarPuntoYComa < lineaActual.length())
     {
         string salto = jump();
-        string listaJump[] = {"JGT", "JEQ", "JGE", "JLT", "JME", "JLE", "JMP"};
+        string listaJump[] = {"JGT", "JEQ", "JGE", "JLT", "JNE", "JLE", "JMP"};
         bool verificador = false;
         for (string i : listaJump)
         {
@@ -168,11 +189,15 @@ bool Parser::esTipoC()
             }
             else
             {
+                DEBUG_STDOUT("LINEA CON ERROR:");
+                DEBUG_STDOUT(lineaActual);
                 throw "ERROR: El computational no coincide con ninguno de los posibles";
             }
         }
         else
         {
+            DEBUG_STDOUT("LINEA CON ERROR:");
+            DEBUG_STDOUT(lineaActual);
             throw "ERROR: El salto no coincide con ninguno de los posibles";
         }
     }
@@ -182,38 +207,47 @@ bool Parser::esTipoC()
     }
 }
 bool Parser::esTipoL()
-{ //( soyunaetiqueta )
-    //- soyun aetiqueta -
-    //-soyun aetiqueta-
+{   
     if (lineaActual.at(0) == '(')
-    {
+    {   
         if (!(lineaActual.at(1) >= '0' && lineaActual.at(1) <= '9'))
         {
+            
             if (lineaActual.at(lineaActual.length() - 1) == ')')
             {
+                
                 string posibleEtiqueta= simbolo();
+                
                 
                 string registroetiqueta="";
                 int c =0;
-                while(posibleEtiqueta.at(c)!=' ' && c<posibleEtiqueta.length()){
+                while(c<posibleEtiqueta.length()&&posibleEtiqueta.at(c)!=' '){
+                    
                     registroetiqueta += posibleEtiqueta.at(c);
+                    
                     c += 1;
                 }
-
+               
                 if(registroetiqueta==posibleEtiqueta){
                     return true;
                 }
                 else{
+                    DEBUG_STDOUT("LINEA CON ERROR:");
+                    DEBUG_STDOUT(lineaActual);
                     throw "ERROR: Es una etiqueta mal escrita";
                 }
             }
             else
             {
+                DEBUG_STDOUT("LINEA CON ERROR:");
+                DEBUG_STDOUT(lineaActual);
                 throw "ERROR: Las etiquetas deben de finalizar con parentesis";
             }
         }
         else
         {
+            DEBUG_STDOUT("LINEA CON ERROR:");
+            DEBUG_STDOUT(lineaActual);
             throw "ERROR: Es una instruccion tipo L mal escrita, No se puede escribir etiquetas iniciando con numeros ";
         }
     }
@@ -245,7 +279,7 @@ string Parser::dest()
 string Parser::comp()
 {
     if (lineaActual.find("=") > 0 && lineaActual.find("=") < lineaActual.length())
-    {//D  + 1->D+1
+    {
         string computational = lineaActual.substr(lineaActual.find("=") + 1);;
         while (computational.find(" ") >= 0 && computational.find(" ") < computational.length())
             {
