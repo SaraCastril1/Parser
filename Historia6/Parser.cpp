@@ -30,10 +30,8 @@ bool Parser::hayComandos()
     {
         lineaActual.erase(lineaActual.find("//")); //Borra todo lo que hay del "//"" en adelante
     }
-    while (lineaActual.find(" ") >= 0 && lineaActual.find(" ") < lineaActual.length())
-    {
-        lineaActual.erase(lineaActual.find(" "), 1); //Borra solo el espacio (1 es la cantidad de caracteres a borrar, es decir longitud)
-    }
+    lineaActual.erase(0,lineaActual.find_first_not_of(' '));//borra los espacios antes
+    lineaActual.erase(lineaActual.find_last_not_of(' ')+1);//borra los espacios despues
     if (lineaActual.empty()) //Verifica si la linea actual está vacia o no.
     {
         return false;
@@ -50,6 +48,7 @@ bool Parser::esTipoA()
         int c = 1;
         if (lineaActual.at(1) >= '0' && lineaActual.at(1) <= '9')
         {
+           
             string registroNumerico = "@";
 
             while (lineaActual.at(c) >= '0' && lineaActual.at(c) <= '9' && c < lineaActual.length())
@@ -63,13 +62,25 @@ bool Parser::esTipoA()
             }
             else
             {
-                throw "ERROR: Es una instruccion A mal escrita, No se puede escribir variables iniciando con numeros";
+                throw "ERROR: Es una instruccion A mal escrita";
             }
         }
         else
-        { //Posible error
-            //string registroAlfanumerico="";
-            return true;
+        { 
+            string registroAlfanumerico="@";
+
+            while(lineaActual.at(c)!=' ' && c<lineaActual.length()){
+                registroAlfanumerico += lineaActual.at(c);
+                c += 1;
+            }
+
+            if(registroAlfanumerico.length()>1 && registroAlfanumerico==lineaActual){
+                return true;
+            }
+            else{
+                throw "ERROR: Es una instruccion A mal escrita";
+            }
+            
         }
     }
     else
@@ -87,7 +98,7 @@ bool Parser::esTipoC()
     }
     else if (buscarIgual > 0 && buscarIgual < lineaActual.length())
     {
-        string destino = lineaActual.substr(0, lineaActual.find("="));
+        string destino = dest();
         string listaDest[] = {"M", "D", "MD", "A", "AM", "AD", "AMD"};
         bool verificador = false;
         for (string i : listaDest)
@@ -100,7 +111,7 @@ bool Parser::esTipoC()
         }
         if (verificador)
         {
-            string computational = lineaActual.substr(lineaActual.find("=")+1);
+            string computational = comp();
             string listaComp[] = {"0", "1", "-1", "D", "A", "!D", "!A","-D","-A","D+1","A+1","D-1","A-1","D+A","D-A","A-D","D&A","D|A","D|M","D&M","M-D","D-M","D+M","M-1","M+1","-M","!M","M"};
             bool verificador2 = false;
             for (string i : listaComp)
@@ -127,12 +138,12 @@ bool Parser::esTipoC()
     }
     else if (buscarPuntoYComa > 0 && buscarPuntoYComa < lineaActual.length())
     {
-        string jump = lineaActual.substr(lineaActual.find(";")+1);
+        string salto = jump();
         string listaJump[] = {"JGT", "JEQ", "JGE", "JLT", "JME", "JLE", "JMP"};
         bool verificador = false;
         for (string i : listaJump)
         {
-            if (jump == i)
+            if (salto == i)
             {
                 verificador = true;
                 break;
@@ -140,7 +151,7 @@ bool Parser::esTipoC()
         }
         if (verificador)
         {
-            string computational = lineaActual.substr(0,lineaActual.find(";"));
+            string computational = comp();
             string listaComp[] = {"0", "1", "-1", "D", "A", "!D", "!A","-D","-A","D+1","A+1","D-1","A-1","D+A","D-A","A-D","D&A","D|A","D|M","D&M","M-D","D-M","D+M","M-1","M+1","-M","!M","M"};
             bool verificador2 = false;
             for (string i : listaComp)
@@ -167,18 +178,34 @@ bool Parser::esTipoC()
     }
     else
     {
-        throw "ERROR: Ninguna instruccion coincide con la sintaxis encontrada";
+        return false;
     }
 }
 bool Parser::esTipoL()
-{ //Verificar posible error de los espacios.
+{ //( soyunaetiqueta )
+    //- soyun aetiqueta -
+    //-soyun aetiqueta-
     if (lineaActual.at(0) == '(')
     {
         if (!(lineaActual.at(1) >= '0' && lineaActual.at(1) <= '9'))
         {
             if (lineaActual.at(lineaActual.length() - 1) == ')')
             {
-                return true;
+                string posibleEtiqueta= simbolo();
+                
+                string registroetiqueta="";
+                int c =0;
+                while(posibleEtiqueta.at(c)!=' ' && c<posibleEtiqueta.length()){
+                    registroetiqueta += posibleEtiqueta.at(c);
+                    c += 1;
+                }
+
+                if(registroetiqueta==posibleEtiqueta){
+                    return true;
+                }
+                else{
+                    throw "ERROR: Es una etiqueta mal escrita";
+                }
             }
             else
             {
@@ -197,13 +224,18 @@ bool Parser::esTipoL()
 }
 string Parser::simbolo()
 {
-    return lineaActual.substr(1, lineaActual.length() - 2); //(LOOP)
+    string etiqueta =lineaActual.substr(1, lineaActual.length() - 2);
+    etiqueta.erase(0,etiqueta.find_first_not_of(' '));
+    etiqueta.erase(etiqueta.find_last_not_of(' ')+1);
+    return etiqueta; //( LOOP )
 }
 string Parser::dest()
 {
     if (lineaActual.find("=") > 0 && lineaActual.find("=") < lineaActual.length())
     {
-        return lineaActual.substr(0, lineaActual.find("=")); //MD=1
+        string destino = lineaActual.substr(0, lineaActual.find("="));
+        destino.erase(destino.find_last_not_of(' ')+1);
+        return destino; //MD   =1
     }
     else
     {
@@ -213,12 +245,22 @@ string Parser::dest()
 string Parser::comp()
 {
     if (lineaActual.find("=") > 0 && lineaActual.find("=") < lineaActual.length())
-    {
-        return lineaActual.substr(lineaActual.find("=") + 1); //MD;JMP
+    {//D  + 1->D+1
+        string computational = lineaActual.substr(lineaActual.find("=") + 1);;
+        while (computational.find(" ") >= 0 && computational.find(" ") < computational.length())
+            {
+                computational.erase(computational.find(" "), 1); //Borra solo el espacio (1 es la cantidad de caracteres a borrar, es decir longitud)
+            }
+        return computational;
     }
     else if (lineaActual.find(";") > 0 && lineaActual.find(";") < lineaActual.length())
     {
-        return lineaActual.substr(0, lineaActual.find(";"));
+        string computational = lineaActual.substr(0, lineaActual.find(";"));
+        while (computational.find(" ") >= 0 && computational.find(" ") < computational.length())
+            {
+                computational.erase(computational.find(" "), 1); //Borra solo el espacio (1 es la cantidad de caracteres a borrar, es decir longitud)
+            }
+        return computational;
     }
     else
     {
@@ -230,7 +272,9 @@ string Parser::jump()
 {
     if (lineaActual.find(";") > 0 && lineaActual.find(";") < lineaActual.length())
     {
-        return lineaActual.substr(lineaActual.find(";") + 1); //MD;JMP
+        string salto = lineaActual.substr(lineaActual.find(";") + 1);
+        salto.erase(0,salto.find_first_not_of(' '));
+        return salto; //D+1 ; JUMP
     }
     else
     {
@@ -240,4 +284,16 @@ string Parser::jump()
 string Parser::valor()
 {
     return lineaActual.substr(1);
+}
+void Parser::aumentarPC()
+{
+    PC++;
+}
+int Parser::getPC()
+{
+    return PC;
+}
+string Parser::getLineaActual()
+{
+    return lineaActual;
 }

@@ -23,6 +23,7 @@ void inicializar(string nomArchivo){
             Parser objetoParser(nomArchivo,nomArchivoS);
             archivoEntrada.close();
             archivoSalida.close();
+
         }else{
             throw "ERROR: El archivo "+nomArchivo+" no existe";
         }

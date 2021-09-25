@@ -97,7 +97,7 @@ bool esTipoC();
 
 
     SINO
-        lanzamos ERROR
+        retornamos false
 
 FIN bool esTipoC();
 

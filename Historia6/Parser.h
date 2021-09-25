@@ -28,5 +28,8 @@ public:
     string comp();              //retorna el mnemonico del comp (tabla 1)
     string jump();              //retorna el mnemonico del jump (tabla 3)
     string valor();                //retorna el valor del tipo a 
+    void aumentarPC();
+    int getPC();
+    string getLineaActual();
 };
 #endif

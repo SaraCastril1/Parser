@@ -23,13 +23,13 @@ PRIMERA PASADA
 
             verificamos SI COMANDO-ES-L:
 
-            le sacamos el símbolo (SIMBOLO)
-            almacenamos el valor en una VARIABLE(STRING):etiqueta
-            verificamos SI NO(etiqueta ESTÁ en la tabla de simbolos):
-                AÑADIMOS a la tabla a etiqueta con la dirección PC
-            SINO
-                LANZAR ERROR Y PARAR PROGRAMA
-            FIN SI
+                le sacamos el símbolo (SIMBOLO)
+                almacenamos el valor en una VARIABLE(STRING):etiqueta
+                verificamos SI NO(etiqueta ESTÁ en la tabla de simbolos):
+                    AÑADIMOS a la tabla a etiqueta con la dirección PC
+                SINO
+                    LANZAR ERROR Y PARAR PROGRAMA
+                FIN SI
 
             SINO
 
@@ -120,7 +120,11 @@ SEGUNDA PASADA
 
             SINO
 
-                continua el ciclo
+                verificamos SI la línea empieza por paréntesis
+                    continua el ciclo
+                SINO
+                    LANZAR ERROR
+                FIN SI
 
             FIN SI
 

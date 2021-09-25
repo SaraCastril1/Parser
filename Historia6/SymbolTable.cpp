@@ -31,3 +31,11 @@ bool SymbolTable::esta(string symbol){
 int SymbolTable::direccion(string symbol){
     return Tabla[symbol];
 }
+void SymbolTable::aumentarContador()
+{
+    contadorRAM++;
+}
+int SymbolTable::getContador()
+{
+    return contadorRAM;
+}
