@@ -1,31 +1,44 @@
 @3
 D=A
 @i
-M=D
+   M= D
 @999
 D=A
-@v
-M=D
+
+
+
+
+   @v
+  M   = D
+
+
+
 (ICICLO)
 @i
-D=M
+   D=M
 @7
-D=D-A
+
+
+
+D   =D - A
 @FCICLO
-D;JLE
+D  ;JMP
 @i
+
+
+
 D=M
 @5
-D=D-A
+D  =D     -A
 @NOIF
-D;JNE
+D;    JNE
 @v
 M=1
 (NOIF)
 @i
-M=M+1
+M=M+        1
 @ICICLO
-0;JMP
+0   ;   JMP
 (FCICLO)
 @i
 D=M

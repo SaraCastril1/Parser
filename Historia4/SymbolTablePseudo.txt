@@ -1,5 +1,5 @@
 SymbolTable();       
-    Cear el diccionario de tipos strin-enteros (atributo de la clase)
+    Cear el diccionario de tipos string-enteros (atributo de la clase)
     se añaden los valores predefinidos por la tabla 4
     se crea el contadorRAM inicializado en 16                      
 FIN SymbolTable();                             

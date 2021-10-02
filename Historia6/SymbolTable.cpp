@@ -27,9 +27,10 @@ SymbolTable::~SymbolTable(){
     DEBUG_STDERR("-----se llamo el destructor de la tabla de simbolos------");
 }
 
-void SymbolTable::anadir(string symbol, int adress){
-    Tabla.insert({symbol,adress});
+void SymbolTable::anadir(string symbol, int address){
+    Tabla.insert({symbol,address});
 }
+
 bool SymbolTable::esta(string symbol){
     auto busqueda = Tabla.find(symbol);
     if (busqueda!=Tabla.end()){
@@ -39,13 +40,18 @@ bool SymbolTable::esta(string symbol){
     }
 
 }
+
 int SymbolTable::direccion(string symbol){
     return Tabla[symbol];
 }
+
+//metodos que no tenian pseudo pero que su nombre dicen su función
+
 void SymbolTable::aumentarContador()
 {
     contadorRAM++;
 }
+
 int SymbolTable::getContador()
 {
     return contadorRAM;

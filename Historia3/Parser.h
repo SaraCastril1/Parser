@@ -10,6 +10,8 @@ using namespace std;
 class Parser
 {
 private:
+
+    //se ven necesarios los siguientes atributos
     int PC=0;
     fstream archivoEntrada,archivoSalida;
     string lineaActual="";
@@ -17,10 +19,17 @@ private:
 public:
     SymbolTable tabla;
 
-    Parser(string nomArchivo);    //abre un flujo/archivo de entrada y lo deja listo para realizar el parsing
-    ~Parser();                  //destruye jeje
+    //debido a los problemas se decide cambiar los parametros del costructor
 
-    bool hayComandos();     // pregunta si el archivo tiene más comandos
+    Parser(string nomArchivo);      //abre un flujo/archivo de entrada y lo deja listo para realizar el parsing
+    ~Parser();                      //destruye 
+
+    //se decide prescindir de advance, pues su funcionalidad es tomada por un ciclo
+    //se decide cambiar algunos nombres
+    //se decide dividir commandType en los tres esTipoX()
+    //se decide separar symbol en simbolo y en valor para una implementacion separada 
+    
+    bool hayComandos();         //pregunta si el archivo tiene más comandos
     bool esTipoA();
     bool esTipoC();
     bool esTipoL();

@@ -14,6 +14,8 @@ public:
     Code();
     ~Code();
 
+    //al notar que no necesitamos construir un objeto code se decide definir los metodos estaticos
+    
     static string dest(string mnemonic);   // devuelve el binario del dest 
     static string comp(string mnemonic);     // devuelve el binario del comp 
     static string jump(string mnemonic);   // devuelve el binario del jump 

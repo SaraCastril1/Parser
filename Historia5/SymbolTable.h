@@ -15,7 +15,7 @@ public:
     SymbolTable();                              //crea una tabla predefinida
     ~SymbolTable();
 
-    void anadir(string symbol, int adress);     // añade simbolo-dirección a la tabla
+    void anadir(string symbol, int address);     // añade simbolo-dirección a la tabla
     bool esta(string symbol);                   // responde si la tabla contiene el símbolo buscado
     int direccion(string symbol);               // devuelve la dirección del símbolo buscado
 };

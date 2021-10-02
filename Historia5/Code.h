@@ -14,9 +14,9 @@ public:
     Code();
     ~Code();
 
-    string dest(string mnemonic);   // devuelve el binario del dest 
-    string comp(string mnemonic);     // devuelve el binario del comp 
-    string jump(string mnemonic);   // devuelve el binario del jump 
-    string value(int direccion);   // devuelve el binario del valor del tipo A 
+    string dest(string mnemonic);       // devuelve el binario del dest 
+    string comp(string mnemonic);       // devuelve el binario del comp 
+    string jump(string mnemonic);       // devuelve el binario del jump 
+    string value(int direccion);        // devuelve el binario del valor del tipo A 
 };
 #endif 

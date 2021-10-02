@@ -18,6 +18,9 @@ public:
     void anadir(string symbol, int adress);     // añade simbolo-dirección a la tabla
     bool esta(string symbol);                   // responde si la tabla contiene el símbolo buscado
     int direccion(string symbol);               // devuelve la dirección del símbolo buscado
+
+    //se decide crear los siguientes metodos para manejo de atributos privados
+
     int getContador();
     void aumentarContador();
 };

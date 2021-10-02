@@ -126,7 +126,7 @@ int main(int argc, char *argv[])
     }
     archivo.close();
 
-    system("pause");*/
+    system("pause");
 
     //revisar si hay tokens:
     string texto1="yo no tengo espacios";
@@ -173,6 +173,7 @@ int main(int argc, char *argv[])
     //para hacer el trim de una cadena 
     texto1.erase(0,texto1.find_first_not_of(' '));
     texto1.erase(texto1.find_last_not_of(' ')+1);
+    */
 }
 
 

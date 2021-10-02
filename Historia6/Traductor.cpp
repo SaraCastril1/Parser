@@ -131,14 +131,6 @@ int main(int argc, char const *argv[])
                         DEBUG_STDOUT(salto);
 
                         string registroCBin= "111"+computational+destino+salto;
-                        if(registroCBin.length()<16){
-                            DEBUG_STDOUT("----------linea con error-----------");
-                            DEBUG_STDOUT(computational);
-                            DEBUG_STDOUT(destino);
-                            DEBUG_STDOUT(salto);
-                            DEBUG_STDOUT("----------linea con error-----------");
-
-                        }
                         DEBUG_STDOUT("el registro en binario es:");
                         DEBUG_STDOUT(registroCBin);
                         objetoParser.archivoSalida<<registroCBin<<endl;                 
@@ -169,10 +161,13 @@ int main(int argc, char const *argv[])
     }
     catch(const char* error)
     {
-        std::cout << error << '\n';
+        DEBUG_STDOUT("atrape un error char");
+        std::cout<<error<<'\n';
+
     }catch(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > error)
     {
-        std::cout << error << '\n';
+        DEBUG_STDOUT("atrape un error string");
+        std::cout<<error<<'\n';
     }
 
     //finalizar

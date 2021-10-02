@@ -1,0 +1,44 @@
+function deleted
+archivos como parametros no da --> getters y setters??------>EN REVISIÓN---> solución con punteros jeje
+
+----------------------------------------------------
+
+preguntas del informe
+
+- uno no puede escribir null=A+1 cierto?
+
+- los constructores no llevan pseudo??
+
+- debo hacer archivos .o para historias previas a la 6?
+
+- por que a veces el alcance si me elimina los objetos y a veces no
+
+- el delete es para absolutamente toda variable?? (p.ej. registroA )
+
+- tenemos que ponerle condición que revise q haya un . (extension de archivo)?
+
+- por que salen a veces los errores y a veces no :(
+
+--------------------------------------------------------
+
+solucionadas
+
+- el pseudo debe ser igual al código?
+    se agrega un comentario a donde hubo cambios en el pseudo jeje
+
+- en las carpetas que presentemos debemos poner los archivos de ejemplo? o solo codigo y makefile?
+    cada historia debe tener los cpp h y makefile
+
+- los .h mostrados en historias anteriores deben ser iguales a los de la historia 6?
+    debe estar adaptado, no igual 
+
+- los getters creados deben llevar const?
+    no es obligación pero es buena practica 
+
+- en caso de presentarse un error debe de eliminarse el archivo.hack?
+    nuestra decision 
+
+- porque el makefile no compila dos archivos :( ?
+    cuaderno
+
+
