@@ -1,21 +1,11 @@
 Parser(string nomArchivo);    //abre un flujo/archivo de entrada y lo deja listo para realizar el parsing
-    verifica SI la extensión de nomArchivo sea .asm 
-        creamos un objeto que manipule archivos 
-        abrimos el archivo con el nomArchivo
-        verificamos  SI existe el archivo
-            inicializa un ATRIBUTO(ENTERA) PC=0
-            inicializa un ATRIBUTO(STRING) lineaActual=""
-            creamos el archivo de salida
-            cramos un objeto SymbolTable
-        SINO 
-            lanza un error y para ejecucion
-    SINO
-        lanza un error y para ejecucion
+//Ahora el constructor de parser tiene como parametros tanto el nombre del archivo de entrada como el de salida.
+            Inicializamos atributos archivoEntrada y archivoSalida abriendolos con los respectivos nombres ingresados por parametros.
 FIN Parser(string nomArchivo);    
 
 bool hayComandos();     // pregunta si el archivo tiene más comandos
-    eliminamos los ' ' en la lineaActual
-    eliminamos todo lo que haya luego de "//"
+    Eliminamos todo lo que haya luego de "//"
+    Eliminamos los espacios a la derecha y a la izquierda (Espacios externos)
     verificamos SI lineaActual tiene más contenido (posible codigo)
         retorna verdadero
     SINO
