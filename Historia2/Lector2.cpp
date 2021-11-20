@@ -16,17 +16,21 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-    string nombreArchivo, linea;
-    nombreArchivo=argv[1];
-    fstream archivo;
-    archivo.open(nombreArchivo);
-    if(!archivo){
-        cout<<"El archivo "<<nombreArchivo<<" no existe";
+    if(argc==1){
+        cout<<"no se ingreso ningun nombre por terminal";
     }else{
-        while(!archivo.eof()){
-            getline(archivo,linea);
-            DEBUG_STDOUT(linea);
+        string nombreArchivo, linea;
+        nombreArchivo=argv[1];
+        fstream archivo;
+        archivo.open(nombreArchivo);
+        if(!archivo){
+            cout<<"El archivo "<<nombreArchivo<<" no existe";
+        }else{
+            while(!archivo.eof()){
+                getline(archivo,linea);
+                DEBUG_STDOUT(linea);
+            }
         }
+        archivo.close();
     }
-    archivo.close();
 }

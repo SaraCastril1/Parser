@@ -10,7 +10,7 @@
 #include "SymbolTable.h"
 #include <iostream>
 
-#define DEBUG
+//#define DEBUG
 
 #ifdef DEBUG
 #define DEBUG_STDERR(x) (std::cerr << (x) << "\n")

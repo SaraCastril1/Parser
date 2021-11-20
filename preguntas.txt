@@ -1,27 +1,36 @@
-function deleted
-archivos como parametros no da --> getters y setters??------>EN REVISIÓN---> solución con punteros jeje
 
 ----------------------------------------------------
 
-preguntas del informe
+OPCIONAL LA ENTRADA DE TERMINAL (1,2,6)
 
-- uno no puede escribir null=A+1 cierto?
-
-- los constructores no llevan pseudo??
-
-- debo hacer archivos .o para historias previas a la 6?
-
-- por que a veces el alcance si me elimina los objetos y a veces no
-
-- el delete es para absolutamente toda variable?? (p.ej. registroA )
-
-- tenemos que ponerle condición que revise q haya un . (extension de archivo)?
-
-- por que salen a veces los errores y a veces no :(
+adicionarle los .cpp 3-5
 
 --------------------------------------------------------
 
 solucionadas
+-function deleted
+    archivos como parametros no da --> getters y setters??------>EN REVISIÓN---> solución con punteros jeje
+
+- uno no puede escribir null=A+1 cierto?
+    no
+
+- los constructores no llevan pseudo??
+    no, a menos que haga algo espectacular(tabla de simbolos)
+
+- debo hacer archivos .o para historias previas a la 6?
+    no
+
+- por que a veces el alcance si me elimina los objetos y a veces no
+    porque el error me lanza un exit... y no me elimina eso
+
+- el delete es para absolutamente toda variable?? (p.ej. registroA )
+    para los objetos, es decir las variables primitivas no requieren delete
+
+- tenemos que ponerle condición que revise q haya un . (extension de archivo)?
+    no es necesario
+
+- por que salen a veces los errores y a veces no :(
+    es un misterio
 
 - el pseudo debe ser igual al código?
     se agrega un comentario a donde hubo cambios en el pseudo jeje

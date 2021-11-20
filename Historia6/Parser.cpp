@@ -11,7 +11,7 @@
 #include "Parser.h"
 #include <iostream>
 
-#define DEBUG
+//#define DEBUG
 
 #ifdef DEBUG
 #define DEBUG_STDERR(x) (std::cerr << (x) << "\n")
@@ -86,6 +86,12 @@ bool Parser::esTipoA()
                 DEBUG_STDOUT(lineaActual);
                 throw "ERROR: Es una instruccion A mal escrita";
             }
+        }
+        else if(lineaActual.length()>2 && lineaActual.at(1)=='-' && lineaActual.at(2) >= '0' && lineaActual.at(2) <= '9')
+        {
+            DEBUG_STDOUT("LINEA CON ERROR:");
+            DEBUG_STDOUT(lineaActual);
+            throw "ERROR: Es una instruccion A mal escrita";
         }
         else
         { 
@@ -228,7 +234,7 @@ bool Parser::esTipoL()
     {   
         //cambia respecto al pseudo que la segunda pregunta que hacemos es que su segundo caracter no puede ser numero
 
-        if (!(lineaActual.at(1) >= '0' && lineaActual.at(1) <= '9'))
+        if (!(lineaActual.at(1) >= '0' && lineaActual.at(1) <= '9') && !(lineaActual.length()>2 && lineaActual.at(1)=='-' && lineaActual.at(2) >= '0' && lineaActual.at(2) <= '9'))
         {
             //cambia respecto al pseudo que luego verificamos si termina correctamente la etiqueta
             
@@ -260,7 +266,7 @@ bool Parser::esTipoL()
 
                     DEBUG_STDOUT("LINEA CON ERROR:");
                     DEBUG_STDOUT(lineaActual);
-                    throw ("ERROR: Es una etiqueta mal escrita");
+                    throw ("ERROR: Etiqueta mal escrita");
                     
                 }
             }

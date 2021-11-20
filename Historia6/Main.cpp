@@ -10,7 +10,7 @@
 #include "SymbolTable.h"
 #include <iostream>
 
-#define DEBUG
+//#define DEBUG
 
 #ifdef DEBUG
 #define DEBUG_STDERR(x) (std::cerr << (x) << "\n")
@@ -176,7 +176,11 @@ int main(int argc, char const *argv[])
 {
     try
     {
-        finalizar(segundaPasada(primeraPasada(inicializar(argv[1]))));
+        if(argc!=2){
+            cout<<"hubo un problema con los datos ingresados por terminal\npor favor verificar que este ingresando el nombre del archivo \ny que este mismo no este separado por espacios";
+        }else{
+            finalizar(segundaPasada(primeraPasada(inicializar(argv[1]))));
+        }
 
         //inicializar(argv[1]);
     }
